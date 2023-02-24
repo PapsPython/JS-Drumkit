@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Drumkit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <main>
+    <ul>
+      <li data-key="a" class="letter">
+        <h1>A</h1>
+        <p>clap</p>
+      </li>
+      <li data-key="s" class="letter">
+        <h1 id="S">S</h1>
+        <p>hihat</p>
+      </li>
+      <li data-key="d" class="letter">
+        <h1>D</h1>
+        <p>kick</p>
+      </li>
+      <li data-key="f" class="letter">
+        <h1>F</h1>
+        <p>Openhat</p>
+      </li>
+      <li data-key="g" class="letter">
+        <h1>G</h1>
+        <p>boom</p>
+      </li>
+      <li data-key="h" class="letter">
+        <h1>H</h1>
+        <p>ride</p>
+      </li>
+      <li data-key="j" class="letter">
+        <h1>J</h1>
+        <p>snare</p>
+      </li>
+      <li data-key="k" class="letter">
+        <h1>K</h1>
+        <p>tom</p>
+      </li>
+      <li data-key="l" class="letter">
+        <h1>L</h1>
+        <p>tink</p>
+      </li>
+    </ul>
+  </main>
+
+  <audio data-key="a" src="sounds/clap.wav"></audio>
+  <audio data-key="s" src="sounds/hihat.wav"></audio>
+  <audio data-key="d" src="sounds/kick.wav"></audio>
+  <audio data-key="f" src="sounds/openhat.wav"></audio>
+  <audio data-key="g" src="sounds/boom.wav"></audio>
+  <audio data-key="h" src="sounds/ride.wav"></audio>
+  <audio data-key="j" src="sounds/snare.wav"></audio>
+  <audio data-key="k" src="sounds/tom.wav"></audio>
+  <audio data-key="l" src="sounds/tink.wav"></audio>
+
+
+
+  <script>
+
+
+
+    function removeTransition(e) {
+      if (e.propertyName !== "transform") return;
+      e.target.classList.remove("playing");
+    }
+
+
+
+
+    const keys = Array.from(document.querySelectorAll('.letter'));
+    keys.forEach(function (key) {
+      key.addEventListener('transitionend', removeTransition)
+    })
+
+
+    window.addEventListener('keydown', function (e) {
+      const audio = document.querySelector(`audio[data-key="${e.key}"]`);
+      const key = document.querySelector(`li[data-key="${e.key}"]`);
+      if (!audio) return;
+      key.classList.add('playing');
+      audio.currentTime = 0; // repeat the track
+      audio.play();
+    })
+
+  </script>
+
+  <!--
+  This script places a badge on your repl's full-browser view back to your repl's cover
+  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
+  teal, blue, blurple, magenta, pink!
+  -->
+  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
+</body>
+
+</html>
